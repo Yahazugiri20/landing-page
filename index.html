@@ -70,8 +70,8 @@
   .bounce-slow{ animation: bounce-slow 4s ease-in-out infinite; }
   .bounce-slower{ animation: bounce-slow 6s ease-in-out infinite; }
   @keyframes bounce-slow{
-    0%,100%{ transform: translateY(0) rotate(var(-- r,0deg)); }
-    50%{ transform: translateY(-14px) rotate(var(-- r,0deg)); }
+    0%,100%{ transform: translateY(0) rotate(var(--r,0deg)); }
+    50%{ transform: translateY(-14px) rotate(var(--r,0deg)); }
   }
 
   .float-spin{ animation: float-spin 12s linear infinite; }
@@ -210,7 +210,7 @@
       <a href="#faq" class="hover:text-[var(--neon)] transition">FAQ</a>
     </nav>
 
-    <a href="#alpha" class="btn-neon font-display text-xs md:text-sm font-700 px-4 md:px-5 py-2.5 rounded-full">
+    <a href="https://dexscreener.com/robinhood/0xcc4207e4e042aa6addb3d8a7db85627056249292" target="_blank" class="btn-neon font-display text-xs md:text-sm font-700 px-4 md:px-5 py-2.5 rounded-full">
       BUY $1HCYL
     </a>
 
@@ -241,10 +241,10 @@
     </p>
 
     <div class="mt-8 flex flex-wrap items-center justify-center gap-4">
-      <a href="#alpha" class="btn-neon font-display font-700 text-sm md:text-base px-7 py-4 rounded-full wiggle">
+      <a href="https://dexscreener.com/robinhood/0xcc4207e4e042aa6addb3d8a7db85627056249292" target="_blank" class="btn-neon font-display font-700 text-sm md:text-base px-7 py-4 rounded-full wiggle">
         🚀 BUY 1HCYL
       </a>
-      <a href="#gallery" class="btn-ghost font-display font-700 text-sm md:text-base px-7 py-4 rounded-full wiggle">
+      <a href="https://x.com/1HCYL" target="_blank" class="btn-ghost font-display font-700 text-sm md:text-base px-7 py-4 rounded-full wiggle">
         🧢 JOIN THE HOOD
       </a>
     </div>
@@ -303,7 +303,7 @@
 
     <div class="mt-8 comic-border-neon bg-black/60 rounded-3xl p-4 md:p-6 flex flex-col md:flex-row items-stretch gap-4">
       <div class="flex-1 flex items-center justify-start md:justify-center overflow-x-auto rounded-2xl bg-black px-4 py-4 md:py-0">
-        <code id="ca-text" class="font-mono text-[var(--neon)] text-sm md:text-lg whitespace-nowrap">HooD1HCYLxxxx7f3K9pQmZ2vT8sR4nW6yB1cE5aDpump</code>
+        <code id="ca-text" class="font-mono text-[var(--neon)] text-sm md:text-lg whitespace-nowrap">0xe9dce7f4565d4f49c73ba8bf16a3e4eecd8aea1c</code>
       </div>
       <button id="copy-btn" onclick="copyCA()" class="btn-neon font-display font-800 text-sm md:text-base px-6 md:px-8 py-4 rounded-2xl shrink-0 whitespace-nowrap">
         <span id="copy-label">📋 COPY CA</span>
@@ -318,7 +318,7 @@
   </div>
 </section>
 
-<!-- ===================== LIVE STATS (REALTIME BY API) ===================== -->
+<!-- ===================== LIVE STATS ===================== -->
 <section id="stats" class="relative py-16 md:py-24 bg-[var(--purple-deep)] overflow-hidden">
   <div class="blob w-[300px] h-[300px] bg-[var(--neon)] top-0 right-0"></div>
   <div class="max-w-7xl mx-auto px-5 md:px-8 relative reveal">
@@ -475,9 +475,9 @@
     <h3 class="font-display font-900 text-3xl md:text-4xl text-white">1HCYL</h3>
 
     <div class="flex flex-wrap items-center justify-center gap-4 mt-8">
-      <!-- FIXED: Cuma X (Twitter) dan Dexscreener aja biar simetris -->
-      <a href="https://x.com/username_lu" target="_blank" class="btn-ghost font-display font-700 text-xs px-6 py-3.5 rounded-full">𝕏 Twitter</a>
-      <a href="https://dexscreener.com/arbitrum/ISI_ALAMAT_PAIR_DEXSCREENER_LU_DISINI" target="_blank" class="btn-ghost font-display font-700 text-xs px-6 py-3.5 rounded-full">📊 Dexscreener</a>
+      <!-- FIXED LINK OFFICIAL -->
+      <a href="https://x.com/1HCYL" target="_blank" class="btn-ghost font-display font-700 text-xs px-6 py-3.5 rounded-full">𝕏 Twitter</a>
+      <a href="https://dexscreener.com/robinhood/0xcc4207e4e042aa6addb3d8a7db85627056249292" target="_blank" class="btn-ghost font-display font-700 text-xs px-6 py-3.5 rounded-full">📊 Dexscreener</a>
     </div>
 
     <p class="mt-10 font-display font-700 text-[var(--neon)] text-sm tracking-wide">
@@ -509,17 +509,16 @@
   }, { threshold: 0.15 });
   revealEls.forEach(el=>io.observe(el));
 
-  // Dexscreener Realtime Data Fetching 
-  // API ini otomatis ngedeteksi multi-chain berdasarkan alamat pair-nya langsung
-  const PAIR_ADDRESS = "ISI_ALAMAT_PAIR_DEXSCREENER_LU_DISINI"; // <-- TINGGAL PASTE ALAMAT PAIR LU DI SINI
+  // Dexscreener Realtime Data Fetching untuk Jaringan Robinhood
+  const PAIR_ADDRESS = "0xcc4207e4e042aa6addb3d8a7db85627056249292";
   
   async function fetchDexStats() {
-    if(PAIR_ADDRESS === "ISI_ALAMAT_PAIR_DEXSCREENER_LU_DISINI") return;
     try {
-      const res = await fetch(`https://api.dexscreener.com/latest/dex/pairs/arbitrum/${PAIR_ADDRESS}`); // Default pakai arbitrum/base sesuai pool robinhood
+      // Hit endpoint API untuk mendapatkan data pair pools
+      const res = await fetch(`https://api.dexscreener.com/latest/dex/pairs/robinhood/${PAIR_ADDRESS}`);
       let data = await res.json();
       
-      // Fallback generator jika pair tidak ketemu di Arbitrum chain ID
+      // Fallback Search query jika chain name custom/berubah di API
       if(!data || !data.pair) {
         const altRes = await fetch(`https://api.dexscreener.com/latest/dex/search?q=${PAIR_ADDRESS}`);
         data = await altRes.json();
@@ -530,16 +529,16 @@
       if (data && data.pair) {
         const pair = data.pair;
         
-        // 1. Market Cap
+        // 1. Market Cap (FDV)
         document.getElementById('stat-mcap').textContent = pair.fdv ? '$' + Number(pair.fdv).toLocaleString('en-US') : '-';
         
         // 2. Liquidity
         document.getElementById('stat-liq').textContent = pair.liquidity && pair.liquidity.usd ? '$' + Number(pair.liquidity.usd).toLocaleString('en-US') : '-';
         
-        // 3. Price
+        // 3. Price USD
         document.getElementById('stat-price').textContent = pair.priceUsd ? '$' + pair.priceUsd : '-';
         
-        // 4. 24h Change
+        // 4. 24h Price Change
         if (pair.priceChange && pair.priceChange.h24) {
           const change = pair.priceChange.h24;
           const el = document.getElementById('stat-change');
@@ -553,12 +552,12 @@
         document.getElementById('stat-vol').textContent = pair.volume && pair.volume.h24 ? '$' + Number(pair.volume.h24).toLocaleString('en-US') : '-';
       }
     } catch (err) {
-      console.error("Gagal load data realtime Dexscreener:", err);
+      console.error("Gagal sinkronisasi data realtime Dexscreener:", err);
     }
   }
 
   fetchDexStats();
-  setInterval(fetchDexStats, 20000); // Sinkronisasi ulang tiap 20 detik
+  setInterval(fetchDexStats, 20000); // Auto-refresh data tiap 20 detik
 </script>
 
 </body>
