@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>1HCYL — One Hood Can Change Your Life</title>
+<meta name="description" content="ONE HOOD CAN CHANGE YOUR LIFE. $1HCYL — the meme that became a movement." />
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<!-- Tailwind -->
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+<style>
+  :root{
+    --neon: #C6F135;
+    --neon-2: #E1FF6B;
+    --neon-dark: #9CC71E;
+    --ink: #0B0B0F;
+    --purple: #1D0E2E;
+    --purple-deep: #12081C;
+    --purple-2: #2B1240;
+    --paper: #FBFBEF;
+  }
+
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    font-family:'Inter', ui-sans-serif, system-ui, sans-serif;
+    background:var(--purple-deep);
+    color:var(--paper);
+    overflow-x:hidden;
+    position:relative;
+  }
+  .font-display{ font-family:'Unbounded', ui-sans-serif, sans-serif; }
+
+  /* grain overlay */
+  .grain{
+    pointer-events:none;
+    position:fixed; inset:0; z-index:60; opacity:.05; mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* Halftone dot background */
+  .halftone{
+    background-image: radial-gradient(rgba(198,241,53,.35) 1.4px, transparent 1.4px);
+    background-size: 16px 16px;
+  }
+  .halftone-black{
+    background-image: radial-gradient(rgba(0,0,0,.5) 1.4px, transparent 1.4px);
+    background-size: 14px 14px;
+  }
+
+  .comic-border{
+    border: 3px solid var(--ink);
+    box-shadow: 6px 6px 0 var(--ink);
+  }
+  .comic-border-neon{
+    border: 3px solid var(--ink);
+    box-shadow: 6px 6px 0 var(--neon);
+  }
+  .comic-border-lg{
+    border: 4px solid var(--ink);
+    box-shadow: 10px 10px 0 var(--ink);
+  }
+
+  .bounce-slow{ animation: bounce-slow 4s ease-in-out infinite; }
+  .bounce-slower{ animation: bounce-slow 6s ease-in-out infinite; }
+  @keyframes bounce-slow{
+    0%,100%{ transform: translateY(0) rotate(var(--r,0deg)); }
+    50%{ transform: translateY(-14px) rotate(var(--r,0deg)); }
+  }
+
+  .float-spin{ animation: float-spin 12s linear infinite; }
+  @keyframes float-spin{ from{ transform:rotate(0deg);} to{ transform:rotate(360deg);} }
+
+  .wiggle:hover{ animation: wiggle .5s ease-in-out; }
+  @keyframes wiggle{
+    0%,100%{ transform: rotate(0deg) scale(1); }
+    25%{ transform: rotate(-3deg) scale(1.03); }
+    75%{ transform: rotate(3deg) scale(1.03); }
+  }
+
+  .pulse-glow{ animation: pulse-glow 2.4s ease-in-out infinite; }
+  @keyframes pulse-glow{
+    0%,100%{ box-shadow: 0 0 40px 10px rgba(198,241,53,.55), 0 0 100px 30px rgba(198,241,53,.15); }
+    50%{ box-shadow: 0 0 70px 20px rgba(198,241,53,.8), 0 0 140px 50px rgba(198,241,53,.25); }
+  }
+
+  .marquee-track{
+    display:flex; width:max-content;
+    animation: marquee 22s linear infinite;
+  }
+  @keyframes marquee{ from{ transform:translateX(0);} to{ transform:translateX(-50%);} }
+
+  /* scroll reveal */
+  .reveal{ opacity:0; transform: translateY(28px); transition: opacity .7s ease, transform .7s ease; }
+  .reveal.in{ opacity:1; transform:translateY(0); }
+
+  .btn-neon{
+    background: var(--neon);
+    color: var(--ink);
+    border: 3px solid var(--ink);
+    box-shadow: 6px 6px 0 var(--ink);
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .btn-neon:hover{ transform: translate(-3px,-3px); box-shadow: 9px 9px 0 var(--ink); }
+  .btn-neon:active{ transform: translate(2px,2px); box-shadow: 2px 2px 0 var(--ink); }
+
+  .btn-ghost{
+    background: transparent;
+    color: var(--paper);
+    border: 3px solid var(--paper);
+    transition: transform .15s ease, box-shadow .15s ease, background .15s ease, color .15s ease;
+  }
+  .btn-ghost:hover{ transform: translate(-3px,-3px); box-shadow: 9px 9px 0 var(--neon); background:var(--paper); color:var(--ink); }
+  .btn-ghost:active{ transform: translate(2px,2px); box-shadow: 2px 2px 0 var(--neon); }
+
+  .speech-bubble{
+    position: relative;
+    background: var(--paper);
+    color: var(--ink);
+    border: 3px solid var(--ink);
+    border-radius: 24px;
+  }
+  .speech-bubble:after{
+    content:'';
+    position:absolute; left:38px; bottom:-18px;
+    width:0; height:0;
+    border-left: 14px solid transparent;
+    border-right: 14px solid transparent;
+    border-top: 18px solid var(--ink);
+  }
+  .speech-bubble:before{
+    content:'';
+    position:absolute; left:41px; bottom:-13px; z-index:1;
+    width:0; height:0;
+    border-left: 11px solid transparent;
+    border-right: 11px solid transparent;
+    border-top: 14px solid var(--paper);
+  }
+
+  .card-tilt{ transition: transform .3s ease, box-shadow .3s ease; }
+  .card-tilt:hover{ transform: rotate(0deg) scale(1.03) translateY(-6px); }
+
+  .sticker{
+    filter: drop-shadow(0 6px 0 rgba(0,0,0,.4));
+  }
+
+  ::-webkit-scrollbar{ width:12px; }
+  ::-webkit-scrollbar-track{ background:var(--purple-deep); }
+  ::-webkit-scrollbar-thumb{ background:var(--neon); border:3px solid var(--purple-deep); border-radius:8px; }
+
+  .text-outline{
+    -webkit-text-stroke: 2px var(--ink);
+    color: var(--neon);
+  }
+
+  .blob{
+    position:absolute; border-radius:50%; filter: blur(60px); opacity:.35; pointer-events:none;
+  }
+
+  .copy-flash{
+    animation: flash .5s ease;
+  }
+  @keyframes flash{
+    0%{ background: var(--neon); }
+    100%{ background: var(--paper); }
+  }
+
+  .donut-seg{ transition: stroke-dasharray 1.2s ease, opacity .3s ease; }
+
+  details > summary{ list-style:none; cursor:pointer; }
+  details > summary::-webkit-details-marker{ display:none; }
+  details[open] .chev{ transform: rotate(180deg); }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
+  }
+</style>
+</head>
+<body class="selection:bg-[var(--neon)] selection:text-black">
+
+<div class="grain"></div>
+
+<!-- ===================== NAV ===================== -->
+<header class="fixed top-0 inset-x-0 z-50 backdrop-blur-md bg-[var(--purple-deep)]/80 border-b-2 border-black/40">
+  <div class="max-w-7xl mx-auto px-5 md:px-8 h-16 md:h-20 flex items-center justify-between">
+
+    <div class="flex items-center gap-3">
+      <!-- FIX: Mengganti meme.png dengan hero-meme.png -->
+      <img
+        src="hero-meme.png"
+        alt="1HCYL Logo"
+        draggable="false"
+        class="w-10 h-10 rounded-full object-cover comic-border shrink-0 select-none"
+      />
+      <span class="font-display font-800 text-lg md:text-xl tracking-tight">
+        1HCYL
+      </span>
+    </div>
+
+    <nav class="hidden md:flex items-center gap-8 font-semibold text-sm text-[var(--paper)]/80">
+      <a href="#alpha" class="hover:text-[var(--neon)] transition">Contract</a>
+      <a href="#stats" class="hover:text-[var(--neon)] transition">Stats</a>
+      <a href="#gallery" class="hover:text-[var(--neon)] transition">Memes</a>
+      <a href="#hoodmap" class="hover:text-[var(--neon)] transition">Hoodmap</a>
+      <a href="#faq" class="hover:text-[var(--neon)] transition">FAQ</a>
+    </nav>
+
+    <a href="#alpha" class="btn-neon font-display text-xs md:text-sm font-700 px-4 md:px-5 py-2.5 rounded-full">
+      BUY $1HCYL
+    </a>
+
+  </div>
+</header>
+
+<!-- ===================== HERO ===================== -->
+<section class="relative pt-24 md:pt-28 pb-10 overflow-hidden halftone">
+  <!-- ambient blobs -->
+  <div class="blob w-[420px] h-[420px] bg-[var(--neon)] -top-20 -left-20"></div>
+  <div class="blob w-[380px] h-[380px] bg-fuchsia-600 top-40 -right-10"></div>
+  <div class="blob w-[300px] h-[300px] bg-[var(--neon)] bottom-0 left-1/3"></div>
+
+  <div class="relative max-w-7xl mx-auto px-5 md:px-8 text-center">
+    <div class="inline-flex items-center gap-2 speech-bubble px-4 py-2 mb-8 rotate-[-2deg]">
+      <span class="text-xl">🫡</span>
+      <span class="font-display font-700 text-xs md:text-sm">CERTIFIED HOOD-CHANGING TECHNOLOGY</span>
+    </div>
+
+    <h1 class="font-display font-900 leading-[0.95] text-[13vw] sm:text-[9vw] md:text-[6.2vw] tracking-tight">
+      <span class="block">ONE HOOD CAN</span>
+      <span class="block text-outline">CHANGE YOUR LIFE.</span>
+    </h1>
+
+    <p class="mt-6 font-semibold text-lg md:text-2xl text-[var(--paper)]/85 max-w-2xl mx-auto">
+      You only need <span class="text-[var(--neon)]">one hood</span>.<br class="md:hidden"/>
+      Maybe it's this one. <span class="inline-block">👇</span>
+    </p>
+
+    <div class="mt-8 flex flex-wrap items-center justify-center gap-4">
+      <a href="#alpha" class="btn-neon font-display font-700 text-sm md:text-base px-7 py-4 rounded-full wiggle">
+        🚀 BUY 1HCYL
+      </a>
+      <a href="#gallery" class="btn-ghost font-display font-700 text-sm md:text-base px-7 py-4 rounded-full wiggle">
+        🧢 JOIN THE HOOD
+      </a>
+    </div>
+  </div>
+
+  <!-- HUGE hero meme image -->
+  <div class="relative mt-14 md:mt-16 w-full">
+    <div class="relative max-w-[1500px] mx-auto px-3 md:px-6">
+      <div class="relative comic-border-lg rounded-[28px] md:rounded-[40px] overflow-hidden">
+        <img
+          src="hero-meme.png"
+          alt="One Hood Can Change Your Life — everyone pointing at the glowing 1HCYL hood"
+          draggable="false"
+          class="w-full h-[750px] object-contain bg-[#1D0E2E] block select-none"
+        />
+      </div>
+
+      <!-- floating stickers around hero -->
+      <div class="hidden sm:block absolute -top-6 -left-4 md:-left-10 bounce-slow font-display font-800 text-xs md:text-sm bg-[var(--neon)] text-black px-3 py-2 rounded-2xl comic-border rotate-[-8deg] sticker">
+        WAGMI 🤝
+      </div>
+
+      <div class="hidden sm:block absolute top-6 -right-3 md:-right-10 bounce-slower font-display font-800 text-xs md:text-sm bg-white text-black px-3 py-2 rounded-2xl comic-border rotate-[6deg] sticker" style="--r:6deg">
+        NOT FINANCIAL ADVICE 💸
+      </div>
+
+      <div class="hidden md:block absolute -bottom-6 left-10 bounce-slow font-display font-800 text-xs md:text-sm bg-white text-black px-3 py-2 rounded-2xl comic-border rotate-[-5deg] sticker" style="--r:-5deg">
+        1 OF 1 HOOD 🧢
+      </div>
+
+      <div class="hidden md:block absolute bottom-10 right-6 bounce-slower font-display font-800 text-xs md:text-sm bg-[var(--neon)] text-black px-3 py-2 rounded-2xl comic-border rotate-[10deg] sticker" style="--r:10deg">
+        LFG 🔥
+      </div>
+    </div>
+  </div>
+
+  <!-- ticker marquee -->
+  <div class="mt-14 border-y-3 border-black bg-[var(--neon)] py-3 overflow-hidden" style="border-width:3px;">
+    <div class="marquee-track font-display font-800 text-black text-sm md:text-base">
+      <span class="flex items-center gap-3 px-4" aria-hidden="false">
+        <span>1HCYL</span><span>•</span><span>ONE HOOD CAN CHANGE YOUR LIFE</span><span>•</span><span>NOT YOUR HOOD, NOT YOUR LIFE</span><span>•</span><span>1HCYL</span><span>•</span><span>THE HOOD IS THE UTILITY</span><span>•</span>
+      </span>
+      <span class="flex items-center gap-3 px-4" aria-hidden="true">
+        <span>1HCYL</span><span>•</span><span>ONE HOOD CAN CHANGE YOUR LIFE</span><span>•</span><span>NOT YOUR HOOD, NOT YOUR LIFE</span><span>•</span><span>1HCYL</span><span>•</span><span>THE HOOD IS THE UTILITY</span><span>•</span>
+      </span>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CONTRACT ADDRESS ===================== -->
+<section id="alpha" class="relative py-16 md:py-20 bg-[var(--purple)] halftone-black">
+  <div class="max-w-4xl mx-auto px-5 md:px-8 text-center reveal">
+    <span class="font-display font-700 text-xs tracking-[0.25em] text-[var(--neon)]">STEP ONE</span>
+    <h2 class="font-display font-900 text-3xl md:text-5xl mt-3">COPY THE ALPHA</h2>
+    <p class="mt-3 text-[var(--paper)]/70 font-medium">Paste it. Trust it. Ape it. In that order.</p>
+
+    <div class="mt-8 comic-border-neon bg-black/60 rounded-3xl p-4 md:p-6 flex flex-col md:flex-row items-stretch gap-4">
+      <div class="flex-1 flex items-center justify-start md:justify-center overflow-x-auto rounded-2xl bg-black px-4 py-4 md:py-0">
+        <code id="ca-text" class="font-mono text-[var(--neon)] text-sm md:text-lg whitespace-nowrap">HooD1HCYLxxxx7f3K9pQmZ2vT8sR4nW6yB1cE5aDpump</code>
+      </div>
+      <button id="copy-btn" onclick="copyCA()" class="btn-neon font-display font-800 text-sm md:text-base px-6 md:px-8 py-4 rounded-2xl shrink-0 whitespace-nowrap">
+        <span id="copy-label">📋 COPY CA</span>
+      </button>
+    </div>
+
+    <p id="copy-confirm" class="mt-4 font-display font-700 text-[var(--neon)] opacity-0 transition-opacity duration-300">
+      ✔ HOOD SECURED
+    </p>
+
+    <p class="mt-6 text-xs text-[var(--paper)]/40 font-medium">Always verify the CA yourself. Scammers love a good hood too.</p>
+  </div>
+</section>
+
+<!-- ===================== LIVE STATS ===================== -->
+<section id="stats" class="relative py-16 md:py-24 bg-[var(--purple-deep)] overflow-hidden">
+  <div class="blob w-[300px] h-[300px] bg-[var(--neon)] top-0 right-0"></div>
+  <div class="max-w-7xl mx-auto px-5 md:px-8 relative reveal">
+    <div class="text-center mb-12">
+      <span class="font-display font-700 text-xs tracking-[0.25em] text-[var(--neon)]">RECEIPTS</span>
+      <h2 class="font-display font-900 text-3xl md:text-5xl mt-3">LIVE HOOD STATS</h2>
+    </div>
+
+    <div class="grid grid-cols-2 md:grid-cols-5 gap-4 md:gap-6">
+      <div class="comic-border rounded-3xl bg-white text-black p-5 md:p-6 text-center card-tilt rotate-[-1deg]">
+        <p class="text-[10px] md:text-xs font-display font-700 text-black/50 uppercase tracking-wide">Market Cap</p>
+        <p class="font-display font-900 text-xl md:text-3xl mt-2"><span class="counter" data-target="4200000" data-prefix="$">$0</span></p>
+      </div>
+      <div class="comic-border rounded-3xl bg-white text-black p-5 md:p-6 text-center card-tilt rotate-[1deg]">
+        <p class="text-[10px] md:text-xs font-display font-700 text-black/50 uppercase tracking-wide">Liquidity</p>
+        <p class="font-display font-900 text-xl md:text-3xl mt-2"><span class="counter" data-target="690000" data-prefix="$">$0</span></p>
+      </div>
+      <div class="comic-border rounded-3xl bg-[var(--neon)] text-black p-5 md:p-6 text-center card-tilt rotate-[-1.5deg]">
+        <p class="text-[10px] md:text-xs font-display font-700 text-black/50 uppercase tracking-wide">Volume</p>
+        <p class="font-display font-900 text-xl md:text-3xl mt-2"><span class="counter" data-target="1337000" data-prefix="$">$0</span></p>
+      </div>
+      <div class="comic-border rounded-3xl bg-white text-black p-5 md:p-6 text-center card-tilt rotate-[1.5deg]">
+        <p class="text-[10px] md:text-xs font-display font-700 text-black/50 uppercase tracking-wide">Holders</p>
+        <p class="font-display font-900 text-xl md:text-3xl mt-2"><span class="counter" data-target="8008">0</span></p>
+      </div>
+      <div class="col-span-2 md:col-span-1 comic-border rounded-3xl bg-white text-black p-5 md:p-6 text-center card-tilt rotate-[-1deg]">
+        <p class="text-[10px] md:text-xs font-display font-700 text-black/50 uppercase tracking-wide">24H Volume</p>
+        <p class="font-display font-900 text-xl md:text-3xl mt-2"><span class="counter" data-target="420690" data-prefix="$">$0</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== WHY 1HCYL ===================== -->
+<section class="relative py-16 md:py-24 bg-[var(--purple)] halftone">
+  <div class="max-w-7xl mx-auto px-5 md:px-8 reveal">
+    <div class="text-center mb-14">
+      <span class="font-display font-700 text-xs tracking-[0.25em] text-[var(--neon)]">THE PITCH</span>
+      <h2 class="font-display font-900 text-3xl md:text-5xl mt-3">WHY 1HCYL?</h2>
+      <p class="mt-3 text-[var(--paper)]/70 font-medium max-w-xl mx-auto">We only had one job. We nailed it.</p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-6 md:gap-8">
+      <div class="speech-bubble p-7 md:p-8 rotate-[-2deg] card-tilt">
+        <div class="text-5xl mb-4">🧢</div>
+        <h3 class="font-display font-800 text-xl mb-2">ONE HOOD</h3>
+        <p class="font-medium text-black/70">Not two hoods. Not a hoodie subscription. One (1) hood, fully loaded with generational alpha.</p>
+      </div>
+      <div class="speech-bubble p-7 md:p-8 rotate-[1.5deg] card-tilt">
+        <div class="text-5xl mb-4">🫂</div>
+        <h3 class="font-display font-800 text-xl mb-2">ONE COMMUNITY</h3>
+        <p class="font-medium text-black/70">Everyone from the Sistine Chapel to your group chat is already pointing at it. Get in formation.</p>
+      </div>
+      <div class="speech-bubble p-7 md:p-8 rotate-[-1deg] card-tilt">
+        <div class="text-5xl mb-4">🎯</div>
+        <h3 class="font-display font-800 text-xl mb-2">ONE CHANCE</h3>
+        <p class="font-medium text-black/70">This is not a drill, a demo, or a dress rehearsal. The hood only comes around once. Don't blink.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== HOODMAP ===================== -->
+<section id="hoodmap" class="relative py-16 md:py-24 bg-[var(--purple-deep)]">
+  <div class="max-w-3xl mx-auto px-5 md:px-8 reveal">
+    <div class="text-center mb-14">
+      <span class="font-display font-700 text-xs tracking-[0.25em] text-[var(--neon)]">THE PLAN</span>
+      <h2 class="font-display font-900 text-3xl md:text-5xl mt-3">HOODMAP</h2>
+      <p class="mt-3 text-[var(--paper)]/70 font-medium">Not a roadmap. A hoodmap. Read closely.</p>
+    </div>
+
+    <div class="space-y-4">
+      <div class="flex items-center gap-4 comic-border rounded-2xl bg-white text-black p-5 rotate-[-0.5deg]">
+        <span class="text-2xl">✅</span>
+        <p class="font-display font-700">Launch</p>
+      </div>
+      <div class="flex items-center gap-4 comic-border rounded-2xl bg-white text-black p-5 rotate-[0.5deg]">
+        <span class="text-2xl">✅</span>
+        <p class="font-display font-700">Get Memed</p>
+      </div>
+      <div class="flex items-center gap-4 comic-border rounded-2xl bg-[var(--neon)] text-black p-5 rotate-[-0.5deg]">
+        <span class="text-2xl">⏳</span>
+        <p class="font-display font-700">Go Viral</p>
+      </div>
+      <div class="flex items-center gap-4 comic-border rounded-2xl bg-white text-black p-5 rotate-[0.5deg] opacity-70">
+        <span class="text-2xl">☐</span>
+        <p class="font-display font-700">Hood Takes Over Timeline</p>
+      </div>
+      <div class="flex items-center gap-4 comic-border rounded-2xl bg-white text-black p-5 rotate-[-0.5deg] opacity-70">
+        <span class="text-2xl">☐</span>
+        <p class="font-display font-700">Change Your Life</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FAQ ===================== -->
+<section id="faq" class="relative py-16 md:py-24 bg-[var(--purple)] halftone">
+  <div class="max-w-3xl mx-auto px-5 md:px-8 reveal">
+    <div class="text-center mb-12">
+      <span class="font-display font-700 text-xs tracking-[0.25em] text-[var(--neon)]">FAQ</span>
+      <h2 class="font-display font-900 text-3xl md:text-5xl mt-3">QUESTIONS, ANSWERED</h2>
+    </div>
+
+    <div class="space-y-4">
+      <details class="comic-border rounded-2xl bg-white text-black p-5 group" open>
+        <summary class="flex items-center justify-between font-display font-700">
+          <span>When Moon?</span>
+          <span class="chev transition-transform">▾</span>
+        </summary>
+        <p class="mt-3 font-medium text-black/70">When Hood.</p>
+      </details>
+      <details class="comic-border rounded-2xl bg-white text-black p-5 group">
+        <summary class="flex items-center justify-between font-display font-700">
+          <span>What utility?</span>
+          <span class="chev transition-transform">▾</span>
+        </summary>
+        <p class="mt-3 font-medium text-black/70">Changing lives. That's it. That's the whitepaper.</p>
+      </details>
+      <details class="comic-border rounded-2xl bg-white text-black p-5 group">
+        <summary class="flex items-center justify-between font-display font-700">
+          <span>Is this financial advice?</span>
+          <span class="chev transition-transform">▾</span>
+        </summary>
+        <p class="mt-3 font-medium text-black/70">Absolutely not.</p>
+      </details>
+      <details class="comic-border rounded-2xl bg-white text-black p-5 group">
+        <summary class="flex items-center justify-between font-display font-700">
+          <span>Do I really only need one hood?</span>
+          <span class="chev transition-transform">▾</span>
+        </summary>
+        <p class="mt-3 font-medium text-black/70">Yes. Two hoods is greedy. One hood is enlightenment.</p>
+      </details>
+      <details class="comic-border rounded-2xl bg-white text-black p-5 group">
+        <summary class="flex items-center justify-between font-display font-700">
+          <span>Who's the team?</span>
+          <span class="chev transition-transform">▾</span>
+        </summary>
+        <p class="mt-3 font-medium text-black/70">Anonymous, based, and pointing at the hood along with everyone else.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="relative bg-black pt-16 pb-8 overflow-hidden">
+  <div class="blob w-[260px] h-[260px] bg-[var(--neon)] -bottom-20 left-1/2 -translate-x-1/2"></div>
+  <div class="max-w-7xl mx-auto px-5 md:px-8 relative text-center">
+    <!-- FIX: Mengganti meme.png dengan hero-meme.png -->
+    <img
+      src="hero-meme.png"
+      alt="1HCYL Logo"
+      class="w-20 h-20 mx-auto mb-4 rounded-full object-cover comic-border bounce-slow"
+    />
+    <h3 class="font-display font-900 text-3xl md:text-4xl text-white">1HCYL</h3>
+
+    <div class="flex flex-wrap items-center justify-center gap-3 mt-8">
+      <a href="#" class="btn-ghost font-display font-700 text-xs px-5 py-3 rounded-full">𝕏 Twitter</a>
+      <a href="#" class="btn-ghost font-display font-700 text-xs px-5 py-3 rounded-full">✈️ Telegram</a>
+      <a href="#" class="btn-ghost font-display font-700 text-xs px-5 py-3 rounded-full">📊 Dexscreener</a>
+      <a href="#" class="btn-ghost font-display font-700 text-xs px-5 py-3 rounded-full">💻 Github</a>
+    </div>
+
+    <p class="mt-10 font-display font-700 text-[var(--neon)] text-sm tracking-wide">
+      ONE HOOD. ONE CHANCE. ONE LIFE.
+    </p>
+    <p class="mt-4 text-[10px] text-white/30 max-w-md mx-auto font-medium">
+      $1HCYL is a meme token with no intrinsic value or expectation of financial return. This is not financial advice. DYOR.
+    </p>
+  </div>
+</footer>
+
+<script>
+  // Copy CA
+  function copyCA(){
+    const text = document.getElementById('ca-text').innerText;
+    navigator.clipboard.writeText(text).catch(()=>{});
+    const confirmEl = document.getElementById('copy-confirm');
+    const label = document.getElementById('copy-label');
+    confirmEl.style.opacity = '1';
+    label.textContent = '✅ COPIED';
+    setTimeout(()=>{ label.textContent = '📋 COPY CA'; }, 1800);
+    setTimeout(()=>{ confirmEl.style.opacity = '0'; }, 2400);
+  }
+
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el=>io.observe(el));
+
+  // Counters
+  const counters = document.querySelectorAll('.counter');
+  const cio = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        const el = entry.target;
+        const target = parseInt(el.dataset.target, 10);
+        const prefix = el.dataset.prefix || '';
+        const dur = 1600;
+        const start = performance.now();
+        function tick(now){
+          const p = Math.min((now-start)/dur, 1);
+          const eased = 1 - Math.pow(1-p, 3);
+          const val = Math.floor(target * eased);
+          el.textContent = prefix + val.toLocaleString('en-US');
+          if(p < 1) requestAnimationFrame(tick);
+          else el.textContent = prefix + target.toLocaleString('en-US');
+        }
+        requestAnimationFrame(tick);
+        cio.unobserve(el);
+      }
+    });
+  }, { threshold: 0.4 });
+  counters.forEach(el=>cio.observe(el));
+
+  // Donut chart animation
+  const donutSegs = document.querySelectorAll('.donut-seg');
+  const dio = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        donutSegs.forEach(seg=>{
+          const val = seg.dataset.value;
+          seg.style.strokeDasharray = val + ' ' + (100-val);
+        });
+        dio.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.3 });
+  const donut = document.getElementById('donut');
+  if(donut) dio.observe(donut);
+</script>
+
+</body>
+</html>
