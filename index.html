@@ -70,8 +70,8 @@
   .bounce-slow{ animation: bounce-slow 4s ease-in-out infinite; }
   .bounce-slower{ animation: bounce-slow 6s ease-in-out infinite; }
   @keyframes bounce-slow{
-    0%,100%{ transform: translateY(0) rotate(var(--r,0deg)); }
-    50%{ transform: translateY(-14px) rotate(var(--r,0deg)); }
+    0%,100%{ transform: translateY(0) rotate(var(-- r,0deg)); }
+    50%{ transform: translateY(-14px) rotate(var(-- r,0deg)); }
   }
 
   .float-spin{ animation: float-spin 12s linear infinite; }
@@ -191,7 +191,6 @@
   <div class="max-w-7xl mx-auto px-5 md:px-8 h-16 md:h-20 flex items-center justify-between">
 
     <div class="flex items-center gap-3">
-      <!-- FIX: Mengganti meme.png dengan hero-meme.png -->
       <img
         src="hero-meme.png"
         alt="1HCYL Logo"
@@ -319,7 +318,7 @@
   </div>
 </section>
 
-<!-- ===================== LIVE STATS ===================== -->
+<!-- ===================== LIVE STATS (REALTIME BY API) ===================== -->
 <section id="stats" class="relative py-16 md:py-24 bg-[var(--purple-deep)] overflow-hidden">
   <div class="blob w-[300px] h-[300px] bg-[var(--neon)] top-0 right-0"></div>
   <div class="max-w-7xl mx-auto px-5 md:px-8 relative reveal">
@@ -331,23 +330,23 @@
     <div class="grid grid-cols-2 md:grid-cols-5 gap-4 md:gap-6">
       <div class="comic-border rounded-3xl bg-white text-black p-5 md:p-6 text-center card-tilt rotate-[-1deg]">
         <p class="text-[10px] md:text-xs font-display font-700 text-black/50 uppercase tracking-wide">Market Cap</p>
-        <p class="font-display font-900 text-xl md:text-3xl mt-2"><span class="counter" data-target="4200000" data-prefix="$">$0</span></p>
+        <p id="stat-mcap" class="font-display font-900 text-xl md:text-3xl mt-2">Loading...</p>
       </div>
       <div class="comic-border rounded-3xl bg-white text-black p-5 md:p-6 text-center card-tilt rotate-[1deg]">
         <p class="text-[10px] md:text-xs font-display font-700 text-black/50 uppercase tracking-wide">Liquidity</p>
-        <p class="font-display font-900 text-xl md:text-3xl mt-2"><span class="counter" data-target="690000" data-prefix="$">$0</span></p>
+        <p id="stat-liq" class="font-display font-900 text-xl md:text-3xl mt-2">Loading...</p>
       </div>
       <div class="comic-border rounded-3xl bg-[var(--neon)] text-black p-5 md:p-6 text-center card-tilt rotate-[-1.5deg]">
-        <p class="text-[10px] md:text-xs font-display font-700 text-black/50 uppercase tracking-wide">Volume</p>
-        <p class="font-display font-900 text-xl md:text-3xl mt-2"><span class="counter" data-target="1337000" data-prefix="$">$0</span></p>
+        <p class="text-[10px] md:text-xs font-display font-700 text-black/50 uppercase tracking-wide">Price USD</p>
+        <p id="stat-price" class="font-display font-900 text-xl md:text-2xl mt-2">Loading...</p>
       </div>
       <div class="comic-border rounded-3xl bg-white text-black p-5 md:p-6 text-center card-tilt rotate-[1.5deg]">
-        <p class="text-[10px] md:text-xs font-display font-700 text-black/50 uppercase tracking-wide">Holders</p>
-        <p class="font-display font-900 text-xl md:text-3xl mt-2"><span class="counter" data-target="8008">0</span></p>
+        <p class="text-[10px] md:text-xs font-display font-700 text-black/50 uppercase tracking-wide">24h Change</p>
+        <p id="stat-change" class="font-display font-900 text-xl md:text-3xl mt-2">Loading...</p>
       </div>
       <div class="col-span-2 md:col-span-1 comic-border rounded-3xl bg-white text-black p-5 md:p-6 text-center card-tilt rotate-[-1deg]">
         <p class="text-[10px] md:text-xs font-display font-700 text-black/50 uppercase tracking-wide">24H Volume</p>
-        <p class="font-display font-900 text-xl md:text-3xl mt-2"><span class="counter" data-target="420690" data-prefix="$">$0</span></p>
+        <p id="stat-vol" class="font-display font-900 text-xl md:text-3xl mt-2">Loading...</p>
       </div>
     </div>
   </div>
@@ -468,7 +467,6 @@
 <footer class="relative bg-black pt-16 pb-8 overflow-hidden">
   <div class="blob w-[260px] h-[260px] bg-[var(--neon)] -bottom-20 left-1/2 -translate-x-1/2"></div>
   <div class="max-w-7xl mx-auto px-5 md:px-8 relative text-center">
-    <!-- FIX: Mengganti meme.png dengan hero-meme.png -->
     <img
       src="hero-meme.png"
       alt="1HCYL Logo"
@@ -476,11 +474,11 @@
     />
     <h3 class="font-display font-900 text-3xl md:text-4xl text-white">1HCYL</h3>
 
-<div class="flex flex-wrap items-center justify-center gap-3 mt-8">
-  <!-- GANTI URL '#' DI BAWAH INI DENGAN LINK ASLI LU -->
-  <a href="https://x.com/username_lu" target="_blank" class="btn-ghost font-display font-700 text-xs px-5 py-3 rounded-full">𝕏 Twitter</a>
-  <a href="https://dexscreener.com/solana/address_lu" target="_blank" class="btn-ghost font-display font-700 text-xs px-5 py-3 rounded-full">📊 Dexscreener</a>
-</div>
+    <div class="flex flex-wrap items-center justify-center gap-4 mt-8">
+      <!-- FIXED: Cuma X (Twitter) dan Dexscreener aja biar simetris -->
+      <a href="https://x.com/username_lu" target="_blank" class="btn-ghost font-display font-700 text-xs px-6 py-3.5 rounded-full">𝕏 Twitter</a>
+      <a href="https://dexscreener.com/arbitrum/ISI_ALAMAT_PAIR_DEXSCREENER_LU_DISINI" target="_blank" class="btn-ghost font-display font-700 text-xs px-6 py-3.5 rounded-full">📊 Dexscreener</a>
+    </div>
 
     <p class="mt-10 font-display font-700 text-[var(--neon)] text-sm tracking-wide">
       ONE HOOD. ONE CHANCE. ONE LIFE.
@@ -511,46 +509,56 @@
   }, { threshold: 0.15 });
   revealEls.forEach(el=>io.observe(el));
 
-  // Counters
-  const counters = document.querySelectorAll('.counter');
-  const cio = new IntersectionObserver((entries)=>{
-    entries.forEach(entry=>{
-      if(entry.isIntersecting){
-        const el = entry.target;
-        const target = parseInt(el.dataset.target, 10);
-        const prefix = el.dataset.prefix || '';
-        const dur = 1600;
-        const start = performance.now();
-        function tick(now){
-          const p = Math.min((now-start)/dur, 1);
-          const eased = 1 - Math.pow(1-p, 3);
-          const val = Math.floor(target * eased);
-          el.textContent = prefix + val.toLocaleString('en-US');
-          if(p < 1) requestAnimationFrame(tick);
-          else el.textContent = prefix + target.toLocaleString('en-US');
-        }
-        requestAnimationFrame(tick);
-        cio.unobserve(el);
+  // Dexscreener Realtime Data Fetching 
+  // API ini otomatis ngedeteksi multi-chain berdasarkan alamat pair-nya langsung
+  const PAIR_ADDRESS = "ISI_ALAMAT_PAIR_DEXSCREENER_LU_DISINI"; // <-- TINGGAL PASTE ALAMAT PAIR LU DI SINI
+  
+  async function fetchDexStats() {
+    if(PAIR_ADDRESS === "ISI_ALAMAT_PAIR_DEXSCREENER_LU_DISINI") return;
+    try {
+      const res = await fetch(`https://api.dexscreener.com/latest/dex/pairs/arbitrum/${PAIR_ADDRESS}`); // Default pakai arbitrum/base sesuai pool robinhood
+      let data = await res.json();
+      
+      // Fallback generator jika pair tidak ketemu di Arbitrum chain ID
+      if(!data || !data.pair) {
+        const altRes = await fetch(`https://api.dexscreener.com/latest/dex/search?q=${PAIR_ADDRESS}`);
+        data = await altRes.json();
       }
-    });
-  }, { threshold: 0.4 });
-  counters.forEach(el=>cio.observe(el));
 
-  // Donut chart animation
-  const donutSegs = document.querySelectorAll('.donut-seg');
-  const dio = new IntersectionObserver((entries)=>{
-    entries.forEach(entry=>{
-      if(entry.isIntersecting){
-        donutSegs.forEach(seg=>{
-          const val = seg.dataset.value;
-          seg.style.strokeDasharray = val + ' ' + (100-val);
-        });
-        dio.unobserve(entry.target);
+      if (data && data.pairs && data.pairs[0]) data.pair = data.pairs[0];
+      
+      if (data && data.pair) {
+        const pair = data.pair;
+        
+        // 1. Market Cap
+        document.getElementById('stat-mcap').textContent = pair.fdv ? '$' + Number(pair.fdv).toLocaleString('en-US') : '-';
+        
+        // 2. Liquidity
+        document.getElementById('stat-liq').textContent = pair.liquidity && pair.liquidity.usd ? '$' + Number(pair.liquidity.usd).toLocaleString('en-US') : '-';
+        
+        // 3. Price
+        document.getElementById('stat-price').textContent = pair.priceUsd ? '$' + pair.priceUsd : '-';
+        
+        // 4. 24h Change
+        if (pair.priceChange && pair.priceChange.h24) {
+          const change = pair.priceChange.h24;
+          const el = document.getElementById('stat-change');
+          el.textContent = (change > 0 ? '+' : '') + change + '%';
+          el.style.color = change > 0 ? '#C6F135' : '#ef4444';
+        } else {
+          document.getElementById('stat-change').textContent = '-';
+        }
+        
+        // 5. 24h Volume
+        document.getElementById('stat-vol').textContent = pair.volume && pair.volume.h24 ? '$' + Number(pair.volume.h24).toLocaleString('en-US') : '-';
       }
-    });
-  }, { threshold: 0.3 });
-  const donut = document.getElementById('donut');
-  if(donut) dio.observe(donut);
+    } catch (err) {
+      console.error("Gagal load data realtime Dexscreener:", err);
+    }
+  }
+
+  fetchDexStats();
+  setInterval(fetchDexStats, 20000); // Sinkronisasi ulang tiap 20 detik
 </script>
 
 </body>
